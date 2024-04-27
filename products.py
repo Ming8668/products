@@ -8,12 +8,7 @@ while True:
 		break
 	price = input('請輸入商品價格:')
 
-	# p = []
-	# p.append(name)
-	# p.append(price)
-	p = [name, price]
-
-	products.append(p)
+	products.append([name, price])
 
 print(products)
 
