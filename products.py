@@ -1,22 +1,28 @@
 # 記帳程式
 
+import os # operating system
+
 products = []
 
-# 讀取檔案
-with open('products.csv', 'r', encoding='utf-8') as f:
-	for line in f:
-		if '商品,價格' in line: 
-			continue # 繼續 #不執行迴圈跳到下一個迴圈
-		name, price = line.strip().split(',') # 先把\n去掉，再遇到逗點切一刀
-		products.append([name, price])
-# print(products)
-
-
-# 印出歷史紀錄
-print('目前記帳紀錄:')
-for p in products:
-	print(p[0], '的價格是', p[1])
-print('-' * 40)
+#讀取檔案
+if os.path.isfile('products.csv'): # 檢查檔案在不在
+	print('找到檔案!')
+	with open('products.csv', 'r', encoding='utf-8') as f:
+		for line in f:
+			if '商品,價格' in line:
+				continue # 繼續 #不執行迴圈跳到下一個迴圈
+			name, price = line.strip().split(',') # 先把\n去掉，再遇到逗點切一刀
+			products.append([name, price])
+	# print(products)
+	# 印出歷史紀錄
+	print('-' * 40)
+	print('目前記帳紀錄:')
+	for p in products:
+		print(p[0], '的價格是', p[1])
+	print('-' * 40)
+else:
+	print('找不到檔案!')
+	print('-' * 40)
 
 
 #提醒
