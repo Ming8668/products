@@ -7,26 +7,20 @@ import os # operating system
 # 讀取檔案
 def read_file(filename):
 	products = []
-	if os.path.isfile(filename): # 檢查檔案在不在
-		print('找到檔案!')
-		with open(filename, 'r', encoding='utf-8') as f:
-			for line in f:
-				if '商品,價格' in line:
-					continue # 繼續 #不執行迴圈跳到下一個迴圈
-				name, price = line.strip().split(',') # 先把\n去掉，再遇到逗點切一刀
-				products.append([name, price])
-		# print(products)
+	with open(filename, 'r', encoding='utf-8') as f:
+		for line in f:
+			if '商品,價格' in line:
+				continue # 繼續 #不執行迴圈跳到下一個迴圈
+			name, price = line.strip().split(',') # 先把\n去掉，再遇到逗點切一刀
+			products.append([name, price])
+	# print(products)
 
-		# 印出歷史紀錄
-		print('-' * 40)
-		print('目前記帳紀錄:')
-		for p in products:
-			print(p[0], '的價格是', p[1])
-		print('-' * 40)
-	else:
-		print('找不到檔案!')
-		print('-' * 40)
-
+	# 印出歷史紀錄
+	print('-' * 40)
+	print('目前記帳紀錄:')
+	for p in products:
+		print(p[0], '的價格是', p[1])
+	print('-' * 40)
 
 	#提醒
 	print('提醒: 輸入結束請輸入 q')
@@ -64,7 +58,20 @@ def write_file(filename, products):
 
 
 
-products = read_file('products.csv')
-products = user_input(products)
-print_products(products)
-write_file('products.csv', products)
+def main():
+	filename = 'products.csv'
+	if os.path.isfile(filename): # 檢查檔案在不在
+		print('找到檔案!')
+		products = read_file(filename)
+
+	else:
+		print('找不到檔案!')
+		print('-' * 40)
+
+	products = read_file('products.csv')
+	products = user_input(products)
+	print_products(products)
+	write_file('products.csv', products)
+
+
+main()
